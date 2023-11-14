@@ -1,0 +1,28 @@
+{% extends 'distribution/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="jumbotron text-center">
+        <div class="container">
+          <h4 class="jumbotron-heading">Главная</h4>
+          <p class="lead text-muted">Данный сервис позволяет управлять рассылками, администрировать и получать статистику</p>
+        </div>
+      </section>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <table class="table table-striped">
+      <tr>
+          <td class="w-10">Количество рассылок всего</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td class="w-10">Количество активных рассылок</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td class="w-10">Количество уникальных клиентов для рассылок</td>
+          <td>0</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endblock %}
