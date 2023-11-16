@@ -1,0 +1,64 @@
+{% extends 'distribution/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Мои рассылки</h1>
+  </div>
+</section>
+<div class="col-12 mb-5">
+  <a class="btn btn-outline-primary" href="{% url 'distribution:distribution_form' %}">Добавить рассылку</a>
+  <a class="btn btn-outline-primary" href="{% url 'distribution:distribution_list' %}">Запустить рассылки</a>
+  <a class="btn btn-outline-primary" href="{% url 'distribution:distribution_list' %}">Отчет о рассылках</a>
+</div>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      {% for object in object_list %}
+        {% if object.owner == user %}
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <div class="card-body">
+                <table class="table table-striped">
+                  <tr>
+                      <td class="w-25">Наименование</td>
+                      <td>{{ object.name }}</td>
+                  </tr>
+                  <tr>
+                      <td class="w-25">Начало рассылки</td>
+                      <td>{{ object.start_datetime }}</td>
+                  </tr>
+                  <tr>
+                      <td class="w-25">Окончание рассылки</td>
+                      <td>{{ object.end_datetime }}</td>
+                  </tr>
+                  <tr>
+                      <td class="w-25">Периодичность рассылки</td>
+                      <td>{{ object.frequency }}</td>
+                  </tr>
+                  <tr>
+                      <td class="w-25">Статус рассылки</td>
+                      <td>{{ object.status }}</td>
+                  </tr>
+                  <tr>
+                      <td class="w-25">Тема сообщения для отправки</td>
+                      <td>{{ object.message_id }}</td>
+                  </tr>
+                </table>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'distribution:distribution_update' object.pk %}">Edit</a>
+                    <a type="button" class="btn btn-sm btn-outline-danger" href="{% url 'distribution:distribution_delete' object.pk %}">Delete</a>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

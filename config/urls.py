@@ -21,8 +21,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(('distribution.urls', 'distribution'), namespace='distribution')),
+    path('', include(('blog.urls', 'blog'), namespace='blog')),
+    path('distribution/', include(('distribution.urls', 'distribution'), namespace='distribution')),
     path('users/', include(('users.urls', 'users'), namespace='users')),
+
 ]
 
 if settings.DEBUG:

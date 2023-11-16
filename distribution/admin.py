@@ -4,14 +4,14 @@ from distribution.models import Client, Distribution, DistributionLogs, Message
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description', 'email', 'distribution_id')
+    list_display = ('id', 'name', 'description', 'email', 'distribution_id', 'owner')
     list_filter = ('distribution_id',)
     search_fields = ('name', 'description',)
 
 
 @admin.register(Distribution)
 class DistributionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'start_datetime', 'end_datetime', 'frequency', 'status', 'message_id')
+    list_display = ('id', 'name', 'start_datetime', 'end_datetime', 'frequency', 'status', 'message_id', 'owner')
     list_filter = ('name', 'status', 'frequency',)
     search_fields = ('name', 'status', 'frequency',)
 
