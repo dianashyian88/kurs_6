@@ -149,6 +149,8 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'testaicappltion2023sd@yandex.ru'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CACHE_ENABLED = os.getenv('CACHE_ENABLED').lower() in ('true', 'on', 'yes')
 if CACHE_ENABLED:
@@ -158,3 +160,6 @@ if CACHE_ENABLED:
             "LOCATION": os.getenv('CACHES_LOCATION'),
         }
     }
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 10  # Seconds
+SCHEDULER_DEFAULT = True

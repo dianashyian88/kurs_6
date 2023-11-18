@@ -2,7 +2,8 @@ from django.urls import path
 from distribution.apps import DistributionConfig
 from django.views.decorators.cache import cache_page
 from distribution.views import ClientListView, ClientCreateView, ClientUpdateView, \
-    ClientDeleteView, DistributionListView, DistributionCreateView, DistributionUpdateView, DistributionDeleteView
+    ClientDeleteView, DistributionListView, DistributionCreateView, \
+    DistributionUpdateView, DistributionDeleteView, DistributionLogsListView
 from blog.views import BlogListView
 
 
@@ -17,6 +18,6 @@ urlpatterns = [
     path('distribution_create/', DistributionCreateView.as_view(), name='distribution_form'),
     path('distribution_edit/<int:pk>', DistributionUpdateView.as_view(), name='distribution_update'),
     path('distribution_delete/<int:pk>', DistributionDeleteView.as_view(), name='distribution_delete'),
-
+    path('logs_list/', DistributionLogsListView.as_view(), name='logs_list'),
 
 ]

@@ -39,6 +39,11 @@ class Distribution(models.Model):
     message_id = models.ForeignKey(Message, on_delete=models.CASCADE,
                                    verbose_name='идентификатор письма для отправки', **NULLABLE)
     owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='пользователь', **NULLABLE)
+    is_active = models.BooleanField(default=True, verbose_name='признак активной рассылки')
+    emails = models.ManyToManyField(to='Client',
+                                    #limit_choices_to={'owner': owner},
+                                    verbose_name='клиенты')
+    last_datetime = models.DateTimeField(verbose_name='дата и время окончания рассылки', **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'
@@ -47,14 +52,19 @@ class Distribution(models.Model):
         verbose_name = 'рассылка'
         verbose_name_plural = 'рассылки'
         ordering = ('id',)
+        permissions = [
+            (
+                'set_status',
+                'Can change_status рассылка'
+            )
+        ]
 
 
 class Client(models.Model):
     name = models.CharField(max_length=100, verbose_name='ФИО')
     description = models.TextField(verbose_name='комментарий')
     email = models.EmailField(verbose_name='почта')
-    distribution_id = models.ForeignKey(Distribution, on_delete=models.CASCADE,
-                                        verbose_name='идентификатор рассылки', **NULLABLE)
+    #distribution_id = models.ForeignKey(Distribution, on_delete=models.CASCADE, verbose_name='идентификатор рассылки', **NULLABLE)
     owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='пользователь', **NULLABLE)
 
     def __str__(self):
@@ -76,6 +86,8 @@ class DistributionLogs(models.Model):
     start_datetime = models.DateTimeField(verbose_name='дата и время начала последней рассылки')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='статус')
     server_response = models.CharField(max_length=100, verbose_name='ответ почтового сервера')
+    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='пользователь', **NULLABLE)
+    mail = models.EmailField(verbose_name='почта', **NULLABLE)
 
     class Meta:
         verbose_name = 'лог'

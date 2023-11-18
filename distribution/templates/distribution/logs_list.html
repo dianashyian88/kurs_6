@@ -1,0 +1,48 @@
+{% extends 'distribution/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Отчет о рассылках</h1>
+  </div>
+</section>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <table class="table table-striped">
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+        <tr>
+          <th class="w-20">Рассылка</th>
+          <th class="w-20">Дата и время начала последней рассылки</th>
+          <th class="w-20">Статус рассылки</th>
+          <th class="w-20">Получатель рассылки</th>
+          <th class="w-20">Ответ сервера</th>
+        </tr>
+      </table>
+      {% for object in object_list %}
+        {% if object.owner == user %}
+          <table class="table table-striped">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <tr>
+              <td class="w-20">{{ object.distribution_id }}</td>
+              <td class="w-20">{{ object.start_datetime }}</td>
+              <td class="w-20">{{ object.status }}</td>
+              <td class="w-20">{{ object.mail }}</td>
+              <td class="w-20">{{ object.server_response }}</td>
+            </tr>
+          </table>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
